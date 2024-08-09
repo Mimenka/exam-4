@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ anime.title }}</title>
+    <link rel="stylesheet" href="{% static 'anime/css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>{{ anime.title }}</h1>
+        <nav>
+            <a href="{% url 'anime_list' %}">Animes</a>
+            <a href="{% url 'genre_list' %}">Genres</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+                <span>Welcome, {{ user.username }}!</span>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        <h2>{{ anime.title }}</h2>
+        <p>{{ anime.description }}</p>
+
+        <!-- Видео-плеер -->
+        <div class="video-container">
+            <video id="videoPlayer" width="640" height="360" controls>
+                <source id="videoSource" src="{{ selected_episode.video_file.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Список серий -->
+        <h3>Episodes</h3>
+        <ul class="episode-list">
+            {% for episode in anime.episodes.all %}
+                <li>
+                    <a href="{% url 'anime_detail_episode' anime_id=anime.id episode_id=episode.id %}">{{ episode.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 Anime Site</p>
+    </footer>
+</body>
+</html>

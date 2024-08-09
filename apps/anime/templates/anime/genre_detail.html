@@ -1,0 +1,17 @@
+{% extends "anime/base.html" %}
+
+{% block title %}{{ genre.name }}{% endblock %}
+
+{% block content %}
+<div class="genre-detail">
+    <h2>Genre: {{ genre.name }}</h2>
+    <h3>Anime in this genre:</h3>
+    <ul>
+        {% for anime in animes %}
+        <li>
+            <a href="{% url 'anime_detail' anime.id %}">{{ anime.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

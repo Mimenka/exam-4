@@ -1,0 +1,25 @@
+{% extends "anime/base.html" %}
+
+{% block title %}Animes{% endblock %}
+
+{% block content %}
+<form action="{% url 'search_anime' %}" method="get">
+    <input type="text" name="q" placeholder="Search for anime...">
+    <button type="submit">Search</button>
+</form>
+<div class="anime-list">
+    <h2>Animes</h2>
+    <ul>
+        {% for anime in animes %}
+        <li>
+            <a href="{% url 'anime_detail' anime.id %}">
+                <img src="{{ anime.picture.url }}">
+                <p>{{ anime.title }}</p>
+            </a>
+        </li>
+        {% empty %}
+        <li>No anime available.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

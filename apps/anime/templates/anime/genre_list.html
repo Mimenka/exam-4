@@ -1,0 +1,20 @@
+{% extends "anime/base.html" %}
+
+{% block title %}Genres{% endblock %}
+
+{% block content %}
+<form action="{% url 'search_genre' %}" method="get">
+    <input type="text" name="q" placeholder="Search for anime...">
+    <button type="submit">Search</button>
+</form>
+<div class="genre-list">
+    <h2>Genres</h2>
+    <ul>
+        {% for genre in genres %}
+        <li>
+            <a href="{% url 'genre_detail' genre.id %}">{{ genre.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

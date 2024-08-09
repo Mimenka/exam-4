@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Anime Site{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'anime/css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Anime Site</h1>
+        <nav>
+            <a href="{% url 'anime_list' %}">Animes</a>
+            <a href="{% url 'genre_list' %}">Genres</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'user_profile' %}">Welcome, {{ user.username }}!</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Anime Site</p>
+    </footer>
+</body>
+</html>

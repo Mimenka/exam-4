@@ -1,0 +1,43 @@
+{% extends 'anime/base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+
+    <main>
+        <h2>Your Profile</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <h3>Watched Anime</h3>
+        <ul>
+            {% for anime in profile.watched_anime.all %}
+                <li>{{ anime.title }}</li>
+            {% empty %}
+                <li>No watched anime.</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Plan to Watch</h3>
+        <ul>
+            {% for anime in profile.plan_to_watch_anime.all %}
+                <li>{{ anime.title }}</li>
+            {% empty %}
+                <li>No planned anime.</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Favorite Anime</h3>
+        <ul>
+            {% for anime in profile.favorite_anime.all %}
+                <li>{{ anime.title }}</li>
+            {% empty %}
+                <li>No favorite anime.</li>
+            {% endfor %}
+        </ul>
+    </main>
+
+{% endblock %}
